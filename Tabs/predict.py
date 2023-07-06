@@ -15,49 +15,50 @@ def app(dh, x, y):
         age = st.number_input('Age (Tahun)')
         sex = st.selectbox(
             'Sex'
-            ('0', '1')
+            (0, 1)
         )
 
         cp = st.selectbox(
             'CP'
-            ('0', '1', '2', '3', '4')
+            (0, 1, 2, 3, 4)
         )
 
-        trestbps = st.text_input('TrestBps (mmHg)')
+        trestbps = st.number_input('TrestBps (mmHg)')
+
     with col2:
         chol = st.number_input('Chol (mg/dl)')
         fbs = st.selectbox(
             'Fbs'
-            ('0', '1')
+            (0, 1)
         )
         restecg = st.selectbox(
             'RestecG'
-            ('0', '1', '2')
+            (0, 1, 2)
         )
 
         thalach = st.number_input('Thalac')
     with col3:
         exang = st.selectbox(
             'Exang'
-            ('0', '1')
+            (0, 1)
         )
 
         oldpeak = st.selectbox(
             'OldPeak'
-            ('0', '1', '2')
+            (0, 1, 2)
         )
 
         slope = st.selectbox(
             'Slope'
-            ('0', '1', '2', '3')
+            (0, 1, 2, 3)
         )
         ca = st.selectbox(
             'CA'
-            ('0', '1', '2')
+            (0, 1, 2)
         )
         thal = st.selectbox(
             'Thal'
-            ('0', '1')
+            (0, 1)
         )
 
     # Convert input values to numpy array
