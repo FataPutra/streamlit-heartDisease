@@ -13,12 +13,12 @@ def app(dh, x, y):
 
     with col1:
         age = st.number_input('Age (Tahun)')
-        sex = st.sidebar_selectbox(
+        sex = st.selectbox(
             'Sex'
             ('0', '1')
         )
 
-        cp = st.sidebar_selectbox(
+        cp = st.selectbox(
             'CP'
             ('0', '1', '2', '3', '4')
         )
@@ -26,36 +26,36 @@ def app(dh, x, y):
         trestbps = st.text_input('TrestBps (mmHg)')
     with col2:
         chol = st.number_input('Chol (mg/dl)')
-        fbs = st.sidebar_selectbox(
+        fbs = st.selectbox(
             'Fbs'
             ('0', '1')
         )
-        restecg = st.sidebar_selectbox(
+        restecg = st.selectbox(
             'RestecG'
             ('0', '1', '2')
         )
 
         thalach = st.number_input('Thalac')
     with col3:
-        exang = st.sidebar_selectbox(
+        exang = st.selectbox(
             'Exang'
             ('0', '1')
         )
 
-        oldpeak = st.sidebar_selectbox(
+        oldpeak = st.selectbox(
             'OldPeak'
             ('0', '1', '2')
         )
 
-        slope = st.sidebar_selectbox(
+        slope = st.selectbox(
             'Slope'
             ('0', '1', '2', '3')
         )
-        ca = st.sidebar_selectbox(
+        ca = st.selectbox(
             'CA'
             ('0', '1', '2')
         )
-        thal = st.sidebar_selectbox(
+        thal = st.selectbox(
             'Thal'
             ('0', '1')
         )
