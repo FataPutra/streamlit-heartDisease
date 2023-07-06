@@ -23,7 +23,7 @@ def app(dh, x, y):
             ('0', '1', '2', '3', '4')
         )
 
-        trestbps = st.text_input('TrestBps (mmHg)')
+        trestbps = st.number_input('TrestBps (mmHg)')
     with col2:
         chol = st.number_input('Chol (mg/dl)')
         fbs = st.selectbox(
