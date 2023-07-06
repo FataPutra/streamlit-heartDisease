@@ -10,6 +10,8 @@ from sklearn.metrics import accuracy_score
 def simpan_data_ke_dataset_baru(data):
     df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
                            'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal'])
+    # Tambahkan kolom Target berdasarkan prediksi
+    df_baru['Target'] = prediction
     # Ganti dengan nama file dataset baru yang diinginkan
     df_baru.to_csv('dataset_baru.csv', index=False)
     st.write("Data berhasil disimpan ke dataset baru!")
@@ -17,12 +19,14 @@ def simpan_data_ke_dataset_baru(data):
 
 def tambah_data_ke_dataset_lama(data):
     # Ganti dengan nama file dataset lama yang digunakan
-    df_lama = pd.read_csv('heart1.csv')
+    df_lama = pd.read_csv('dataset_lama.csv')
     df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
                            'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal'])
+    # Tambahkan kolom Target berdasarkan prediksi
+    df_baru['Target'] = prediction
     df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
     # Ganti dengan nama file dataset lama yang digunakan
-    df_lama.to_csv('heart1.csv', index=False)
+    df_lama.to_csv('dataset_lama.csv', index=False)
     st.write("Data berhasil ditambahkan ke dataset lama!")
 
 
@@ -44,6 +48,7 @@ def app(dh, x, y):
         )
 
         trestbps = st.number_input('TrestBps (mmHg)')
+
     with col2:
         chol = st.number_input('Chol (mg/dl)')
         fbs = st.selectbox(
@@ -54,8 +59,8 @@ def app(dh, x, y):
             'RestecG',
             ('0', '1', '2')
         )
-
         thalach = st.number_input('Thalac')
+
     with col3:
         exang = st.selectbox(
             'Exang',
@@ -81,60 +86,54 @@ def app(dh, x, y):
         )
 
         # Input persentase test_size
-        test_size = st.slider('Persentase Data Training (ex 25% = 0.25)', min_value=0.1,
-                              max_value=0.9, value=0.25, step=0.05)
+        test_size = st.slider('Persentase Data Training (ex 25% = 0.25)', min_value=0.1, max_value=0.9, value=0.25, step=0.05```python
+        # Convert input values to numpy array
+        features=np.array([age, sex, cp, trestbps, chol, fbs,
+                            restecg, thalach, exang, oldpeak, slope, ca, thal])
 
-        # Input pilihan untuk menyimpan data ke dataset baru atau menambahkannya ke dataset lama
-        pilihan_simpan = st.radio(
-            'Simpan Data:', ('Dataset Baru', 'Dataset Lama'))
+        dh, x, y=load_data()
 
-    # Convert input values to numpy array
-    features = np.array([age, sex, cp, trestbps, chol, fbs,
-                        restecg, thalach, exang, oldpeak, slope, ca, thal])
+        x_train, x_test, y_train, y_test=proses_data(x, y, test_size)
 
-    dh, x, y = load_data()
+        sc=StandardScaler()
+        x_train_scaled=sc.fit_transform(x_train)
+        x_test_scaled=sc.transform(x_test)
 
-    x_train, x_test, y_train, y_test = proses_data(x, y, test_size)
+        classifier=KNeighborsClassifier(n_neighbors=4, metric='euclidean')
+        classifier.fit(x_train_scaled, y_train)
 
-    sc = StandardScaler()
-    x_train_scaled = sc.fit_transform(x_train)
-    x_test_scaled = sc.transform(x_test)
+        y_pred=classifier.predict(x_test_scaled)
 
-    classifier = KNeighborsClassifier(n_neighbors=4, metric='euclidean')
-    classifier.fit(x_train_scaled, y_train)
+        ac=accuracy_score(y_test, y_pred)
 
-    y_pred = classifier.predict(x_test_scaled)
-
-    ac = accuracy_score(y_test, y_pred)
-
-    if col1.button("Prediksi"):
-        if any(feature == '' for feature in features):
-            st.warning("Mohon lengkapi semua input.")
-        else:
-            # Konversi nilai atribut dari string menjadi float
-            features_float = np.array(features, dtype=float)
-
-            if any(np.isnan(features_float)):
-                st.warning(
-                    "Terdapat nilai yang tidak valid. Mohon periksa kembali input.")
+        if st.button("Prediksi"):
+            if any(feature == '' for feature in features):
+                st.warning("Mohon lengkapi semua input.")
             else:
-                # Skala atribut input menggunakan StandardScaler
-                features_scaled = sc.transform(features_float.reshape(1, -1))
+                # Konversi nilai atribut dari string menjadi float
+                features_float=np.array(features, dtype=float)
 
-                prediction = classifier.predict(features_scaled)
-
-                if prediction == 1:
+                if any(np.isnan(features_float)):
                     st.warning(
-                        "Berdasarkan Prediksi kami menunjukkan rentan terkena Jantung Koroner")
+                        "Terdapat nilai yang tidak valid. Mohon periksa kembali input.")
                 else:
-                    st.success(
-                        "Berdasarkan Prediksi kami menunjukkan relatif aman dari Jantung Koroner")
+                    # Skala atribut input menggunakan StandardScaler
+                    features_scaled=sc.transform(features_float.reshape(1, -1))
 
-                st.write(
-                    "Model yang digunakan memiliki tingkat akurasi ", ac * 100, "%")
+                    prediction=classifier.predict(features_scaled)
 
-                # Simpan data ke dataset baru atau tambahkan ke dataset lama
-                if pilihan_simpan == 'Dataset Baru':
-                    simpan_data_ke_dataset_baru(features)
-                else:
-                    tambah_data_ke_dataset_lama(features)
+                    if prediction == 1:
+                        st.warning(
+                            "Berdasarkan Prediksi kami menunjukkan rentan terkena Jantung Koroner")
+                    else:
+                        st.success(
+                            "Berdasarkan Prediksi kami menunjukkan relatif aman dari Jantung Koroner")
+
+                    st.write(
+                        "Model yang digunakan memiliki tingkat akurasi ", ac * 100, "%")
+
+                    # Simpan data ke dataset baru atau tambahkan ke dataset lama
+                    if pilihan_simpan == 'Dataset Baru':
+                        simpan_data_ke_dataset_baru(features, prediction)
+                    else:
+                        tambah_data_ke_dataset_lama(features, prediction)
