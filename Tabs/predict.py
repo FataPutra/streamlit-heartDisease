@@ -61,7 +61,7 @@ def app(dh, x, y):
         )
 
         # Input persentase test_size
-        test_size = st.slider('Persentase Berapa Persen Data Untuk Training (ex 25% = 0.25)', min_value=0.1,
+        test_size = st.slider('Persentase Data Training (ex 25% = 0.25)', min_value=0.1,
                               max_value=0.9, value=0.25, step=0.05)
 
     # Convert input values to numpy array
