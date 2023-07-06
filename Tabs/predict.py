@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 
 
 def app(dh, x, y):
-    st.title("Halaman Prediksi")
+    st.title("HALAMAN PREDIKSI")
 
     col1, col2, col3 = st.columns(3)
 

@@ -5,13 +5,13 @@ from Tabs import predict
 from Tabs import visualisasi
 
 Tabs = {
-    "Home": home,
-    "Visualization": visualisasi,
-    "Prediction": predict
+    "HOME": home,
+    "VISUALISASI": visualisasi,
+    "PREDIKSI": predict
 }
 
 # Membuat sidebar
-st.sidebar.title("Dashboard")
+st.sidebar.title("DASHBOARD")
 
 # Membuat radio option
 page = st.sidebar.radio("Halaman", list(Tabs.keys()))
@@ -20,7 +20,7 @@ page = st.sidebar.radio("Halaman", list(Tabs.keys()))
 dh, x, y = load_data()
 
 # Kondisi memanggil fungsi app
-if page in ["Prediction", "Visualization"]:
+if page in ["PREDIKSI", "VISUALISASI"]:
     Tabs[page].app(dh, x, y)
 else:
     Tabs[page].app()
