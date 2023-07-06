@@ -105,3 +105,6 @@ def app(dh, x, y):
                 else:
                     st.success(
                         "Berdasarkan Prediksi kami menunjukkan relatif aman dari Jantung Koroner")
+
+                st.write(
+                    "Model yang digunakan memiliki tingkat akurasi ", ac * 100, "%")
