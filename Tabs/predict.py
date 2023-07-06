@@ -7,7 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 
-def simpan_data_ke_dataset_baru(data):
+def simpan_data_ke_dataset_baru(data, prediction):
     df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
                            'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal'])
     # Tambahkan kolom Target berdasarkan prediksi
@@ -17,7 +17,7 @@ def simpan_data_ke_dataset_baru(data):
     st.write("Data berhasil disimpan ke dataset baru!")
 
 
-def tambah_data_ke_dataset_lama(data):
+def tambah_data_ke_dataset_lama(data, prediction):
     # Ganti dengan nama file dataset lama yang digunakan
     df_lama = pd.read_csv('heart1.csv')
     df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
