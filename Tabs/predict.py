@@ -8,8 +8,8 @@ from sklearn.metrics import accuracy_score
 
 
 def simpan_data_ke_dataset_baru(data, prediction):
-    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
-                           'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal'])
+    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs',
+                           'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
     # Tambahkan kolom Target berdasarkan prediksi
     df_baru['Target'] = prediction
     # Ganti dengan nama file dataset baru yang diinginkan
@@ -20,10 +20,12 @@ def simpan_data_ke_dataset_baru(data, prediction):
 def tambah_data_ke_dataset_lama(data, prediction):
     # Ganti dengan nama file dataset lama yang digunakan
     df_lama = pd.read_csv('heart1.csv')
-    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
-                           'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal'])
+    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs',
+                           'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
     # Tambahkan kolom Target berdasarkan prediksi
     df_baru['Target'] = prediction
+
+    # Ubah data menjadi DataFrame dan konkatenasikan dengan DataFrame lama
     df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
     # Ganti dengan nama file dataset lama yang digunakan
     df_lama.to_csv('heart1.csv', index=False)
