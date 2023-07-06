@@ -9,24 +9,26 @@ from sklearn.metrics import accuracy_score
 
 def simpan_data_ke_dataset_baru(data, prediction):
     data_array = np.array(data).reshape(1, -1)
-    df_baru = pd.DataFrame(data_array, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
-                           'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
-    # Tambahkan kolom Target berdasarkan prediksi
-    df_baru['Target'] = prediction
-    # Ganti dengan nama file dataset baru yang diinginkan
-    df_baru.to_csv('dataset_baru.csv', index=False)
-    st.write("Data berhasil disimpan ke dataset baru!")
+    target_array = np.array([prediction]).reshape(1, -1)
+    data_array_with_target = np.concatenate((data_array, target_array), axis=1)
+    df_baru = pd.DataFrame(data_array_with_target, columns=[
+                           'Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
+    # Ganti dengan nama file dataset lama yang digunakan
+    df_lama = pd.read_csv('dataset_baru.csv')
+    df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
+    # Ganti dengan nama file dataset lama yang digunakan
+    df_lama.to_csv('dataset_baru.csv', index=False)
+    st.write("Data berhasil ditambahkan ke dataset lama!")
 
 
 def tambah_data_ke_dataset_lama(data, prediction):
+    data_array = np.array(data).reshape(1, -1)
+    target_array = np.array([prediction]).reshape(1, -1)
+    data_array_with_target = np.concatenate((data_array, target_array), axis=1)
     # Ganti dengan nama file dataset lama yang digunakan
     df_lama = pd.read_csv('heart1.csv')
-    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs',
-                           'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
-    # Tambahkan kolom Target berdasarkan prediksi
-    df_baru['Target'] = prediction
-
-    # Ubah data menjadi DataFrame dan konkatenasikan dengan DataFrame lama
+    df_baru = pd.DataFrame(data_array_with_target, columns=[
+                           'Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
     df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
     # Ganti dengan nama file dataset lama yang digunakan
     df_lama.to_csv('heart1.csv', index=False)
