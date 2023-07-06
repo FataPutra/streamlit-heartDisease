@@ -13,67 +13,52 @@ def app(dh, x, y):
 
     with col1:
         age = st.number_input('Age (Tahun)')
-        option = st.selectbox(
-            'Sex'
-            (0, 1)
+        sex = st.selectbox(
+            'Sex',
+            ('0', '1')
         )
-        sex = option
 
-        option2 = st.selectbox(
-            'CP'
-            (0, 1, 2, 3, 4)
+        cp = st.selectbox(
+            'CP',
+            ('0', '1', '2', '3', '4')
         )
-        cp = option2
 
-        trestbps = st.number_input('TrestBps (mmHg)')
-
+        trestbps = st.text_input('TrestBps (mmHg)')
     with col2:
         chol = st.number_input('Chol (mg/dl)')
-
-        option3 = st.selectbox(
-            'Fbs'
-            (0, 1)
+        fbs = st.selectbox(
+            'Fbs',
+            ('0', '1')
         )
-        fbs = option3
-
-        option4 = st.selectbox(
-            'RestecG'
-            (0, 1, 2)
+        restecg = st.selectbox(
+            'RestecG',
+            ('0', '1', '2')
         )
-        restecg = option4
 
         thalach = st.number_input('Thalac')
     with col3:
-        option5 = st.selectbox(
-            'Exang'
-            (0, 1)
-        )
-        exang = option5
-
-        option6 = st.selectbox(
-            'OldPeak'
-            (0, 1, 2)
-        )
-        oldpeak = option6
-
-        option7 = st.selectbox(
-            'Slope'
-            (0, 1, 2, 3)
-        )
-        slope = option7
-
-        option8 = st.selectbox(
-            'CA'
-            (0, 1, 2)
-        )
-        ca = option8
-
-        option9 = st.selectbox(
-            'Thal'
-            (0, 1)
+        exang = st.selectbox(
+            'Exang',
+            ('0', '1')
         )
 
-        thal = option9
+        oldpeak = st.selectbox(
+            'OldPeak',
+            ('0', '1', '2')
+        )
+
+        slope = st.selectbox(
+            'Slope',
+            ('0', '1', '2', '3')
+        )
+        ca = st.selectbox(
+            'CA',
+            ('0', '1', '2')
+        )
+        thal = st.selectbox(
+            'Thal',
+            ('0', '1')
+        )
 
     # Convert input values to numpy array
     features = np.array([age, sex, cp, trestbps, chol, fbs,
