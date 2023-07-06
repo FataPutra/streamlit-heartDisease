@@ -1,38 +1,9 @@
 import streamlit as st
 import numpy as np
-import pandas as pd
 from web_functions import predict, load_data, proses_data, train_model
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
-
-
-def simpan_data_ke_dataset_baru(data, prediction):
-    data_array = np.array(data).reshape(1, -1)
-    target_array = np.array([prediction]).reshape(1, -1)
-    data_array_with_target = np.concatenate((data_array, target_array), axis=1)
-    df_baru = pd.DataFrame(data_array_with_target, columns=[
-                           'Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
-    # Ganti dengan nama file dataset lama yang digunakan
-    df_lama = pd.read_csv('dataset_baru.csv')
-    df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
-    # Ganti dengan nama file dataset lama yang digunakan
-    df_lama.to_csv('dataset_baru.csv', index=False)
-    st.write("Data berhasil ditambahkan ke dataset lama!")
-
-
-def tambah_data_ke_dataset_lama(data, prediction):
-    data_array = np.array(data).reshape(1, -1)
-    target_array = np.array([prediction]).reshape(1, -1)
-    data_array_with_target = np.concatenate((data_array, target_array), axis=1)
-    # Ganti dengan nama file dataset lama yang digunakan
-    df_lama = pd.read_csv('heart1.csv')
-    df_baru = pd.DataFrame(data_array_with_target, columns=[
-                           'Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
-    df_lama = pd.concat([df_lama, df_baru], ignore_index=True)
-    # Ganti dengan nama file dataset lama yang digunakan
-    df_lama.to_csv('heart1.csv', index=False)
-    st.write("Data berhasil ditambahkan ke dataset lama!")
 
 
 def app(dh, x, y):
@@ -93,10 +64,6 @@ def app(dh, x, y):
         test_size = st.slider('Persentase Data Training (ex 25% = 0.25)', min_value=0.1,
                               max_value=0.9, value=0.25, step=0.05)
 
-        # Input pilihan untuk menyimpan data ke dataset baru atau menambahkannya ke dataset lama
-        pilihan_simpan = st.radio(
-            'Simpan Data ', ('Dataset Baru', 'Dataset Lama'))
-
     # Convert input values to numpy array
     features = np.array([age, sex, cp, trestbps, chol, fbs,
                         restecg, thalach, exang, oldpeak, slope, ca, thal])
@@ -141,9 +108,3 @@ def app(dh, x, y):
 
                 st.write(
                     "Model yang digunakan memiliki tingkat akurasi ", ac * 100, "%")
-
-                # Simpan data ke dataset baru atau tambahkan ke dataset lama
-                if pilihan_simpan == 'Dataset Baru':
-                    simpan_data_ke_dataset_baru(features, prediction)
-                else:
-                    tambah_data_ke_dataset_lama(features, prediction)
