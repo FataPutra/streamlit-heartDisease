@@ -18,10 +18,8 @@ def load_data():
 
 
 def proses_data(x, y):
-    persen = st.number_input(
-        'Persentase data bagian Testing (Desimal ex : 25% = 0.25)')
     x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=persen, random_state=0)
+        x, y, test_size=0.25, random_state=0)
     sc = StandardScaler()
     x_train = sc.fit_transform(x_train)
     x_test = sc.transform(x_test)
