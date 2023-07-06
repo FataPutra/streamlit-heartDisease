@@ -14,7 +14,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
 def app(dh, x, y):
-    st.title("Visualisasi Prediksi Penyakit Jantung")
+    st.title("Informasi Visualisasi Data Prediksi Penyakit Jantung")
 
     # Load data
     x_train, x_test, y_train, y_test = proses_data(x, y)
@@ -40,11 +40,11 @@ def app(dh, x, y):
         st.markdown(" - :Jumlah True Negatives (TN): 116 Model telah dengan benar mengklasifikasikan 116 data sebagai negatif berdasarkan label yang sebenarnya.")
         st.markdown(" - :Jumlah False Negatives (FN): 18 Model telah salah mengklasifikasikan 29 data sebagai negatif, padahal sebenarnya data tersebut adalah positif.")
 
-
     # Error Rate vs K
     if st.checkbox("Plot Error Rate vs K"):
         max_k = 40
-        error_rate = calculate_error_rate(x_train, y_train, x_test, y_test, max_k)
+        error_rate = calculate_error_rate(
+            x_train, y_train, x_test, y_test, max_k)
 
         plt.figure(figsize=(10, 6))
         plt.plot(range(1, max_k + 1), error_rate, color='blue', linestyle='--', marker='o', markerfacecolor='red',

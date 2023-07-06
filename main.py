@@ -6,12 +6,12 @@ from Tabs import visualisasi
 
 Tabs = {
     "Home": home,
-    "Prediction": predict,
     "Visualization": visualisasi
+    "Prediction": predict,
 }
 
 # Membuat sidebar
-st.sidebar.title("Navigasi")
+st.sidebar.title("Dashboard")
 
 # Membuat radio option
 page = st.sidebar.radio("Halaman", list(Tabs.keys()))
