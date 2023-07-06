@@ -8,8 +8,9 @@ from sklearn.metrics import accuracy_score
 
 
 def simpan_data_ke_dataset_baru(data, prediction):
-    df_baru = pd.DataFrame(data, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol', 'Fbs',
-                           'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
+    data_array = np.array(data).reshape(1, -1)
+    df_baru = pd.DataFrame(data_array, columns=['Age', 'Sex', 'CP', 'TrestBps', 'Chol',
+                           'Fbs', 'RestecG', 'Thalac', 'Exang', 'OldPeak', 'Slope', 'CA', 'Thal', 'Target'])
     # Tambahkan kolom Target berdasarkan prediksi
     df_baru['Target'] = prediction
     # Ganti dengan nama file dataset baru yang diinginkan
