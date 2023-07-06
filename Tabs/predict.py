@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 from web_functions import predict, load_data, proses_data, train_model
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
