@@ -16,8 +16,12 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 def app(dh, x, y):
     st.title("Informasi Visualisasi Data Prediksi Penyakit Jantung")
 
+    # Input persentase test_size
+    test_size = st.slider('Persentase Data Training (ex 25% = 0.25)', min_value=0.1,
+                          max_value=0.9, value=0.25, step=0.05)
+
     # Load data
-    x_train, x_test, y_train, y_test = proses_data(x, y)
+    x_train, x_test, y_train, y_test = proses_data(x, y, test_size)
 
     # Train model
     model, score = train_model(x_train, y_train)
