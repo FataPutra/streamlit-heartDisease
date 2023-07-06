@@ -6,8 +6,8 @@ from Tabs import visualisasi
 
 Tabs = {
     "Home": home,
-    "Visualization": visualisasi
-    "Prediction": predict,
+    "Visualization": visualisasi,
+    "Prediction": predict
 }
 
 # Membuat sidebar
