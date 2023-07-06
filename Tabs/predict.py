@@ -12,22 +12,53 @@ def app(dh, x, y):
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        age = st.text_input('Age (Tahun)')
-        sex = st.text_input('Sex (Perempuan = 0 , Laki - Laki = 1):')
-        cp = st.text_input('CP (0-4):')
-        trestbps = st.text_input('TrestBps (mmHg):')
+        age = st.number_input('Age (Tahun)')
+        sex = st.sidebar_selectbox(
+            'Sex'
+            ('0', '1')
+        )
+
+        cp = st.sidebar_selectbox(
+            'CP'
+            ('0', '1', '2', '3', '4')
+        )
+
+        trestbps = st.text_input('TrestBps (mmHg)')
     with col2:
-        chol = st.text_input('Chol (mg/dl):')
-        fbs = st.text_input(
-            'Fbs (0,1):')
-        restecg = st.text_input('RestecG (0,1,2):')
-        thalach = st.text_input('Thalac :')
+        chol = st.number_input('Chol (mg/dl)')
+        fbs = st.sidebar_selectbox(
+            'Fbs'
+            ('0', '1')
+        )
+        restecg = st.sidebar_selectbox(
+            'RestecG'
+            ('0', '1', '2')
+        )
+
+        thalach = st.number_input('Thalac')
     with col3:
-        exang = st.text_input('Exang (0,1):')
-        oldpeak = st.text_input('OldPeak (0,1,2):')
-        slope = st.text_input('Slope (0,1,2,3):')
-        ca = st.text_input('CA (0,1,2):')
-        thal = st.text_input('Thal (0,1):')
+        exang = st.sidebar_selectbox(
+            'Exang'
+            ('0', '1')
+        )
+
+        oldpeak = st.sidebar_selectbox(
+            'OldPeak'
+            ('0', '1', '2')
+        )
+
+        slope = st.sidebar_selectbox(
+            'Slope'
+            ('0', '1', '2', '3')
+        )
+        ca = st.sidebar_selectbox(
+            'CA'
+            ('0', '1', '2')
+        )
+        thal = st.sidebar_selectbox(
+            'Thal'
+            ('0', '1')
+        )
 
     # Convert input values to numpy array
     features = np.array([age, sex, cp, trestbps, chol, fbs,
